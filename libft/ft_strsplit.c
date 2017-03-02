@@ -6,11 +6,11 @@
 /*   By: wdebs <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/24 17:23:06 by wdebs             #+#    #+#             */
-/*   Updated: 2016/10/09 00:04:05 by wdebs            ###   ########.fr       */
+/*   Updated: 2017/02/26 01:31:02 by wdebs            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 static int	wordc(char const *str, char x)
 {
@@ -21,11 +21,11 @@ static int	wordc(char const *str, char x)
 	count = 0;
 	while (str[i])
 	{
-		while (str[i] == x)
+		while (str[i] == x || str[i] == '\t')
 			i++;
-		if (str[i] != x && str[i] != '\0')
+		if (str[i] != x && str[i] != '\t' && str[i] != '\0')
 			count++;
-		while (str[i] != x && str[i] != '\0')
+		while (str[i] != x && str[i] != '\t' && str[i] != '\0')
 			i++;
 	}
 	return (count);
@@ -38,9 +38,9 @@ static int	wordl(char const *str, char x)
 
 	i = 0;
 	len = 0;
-	while (str[i] == x)
+	while (str[i] == x || str[i] == '\t')
 		i++;
-	while (str[i] != x && str[i] != '\0')
+	while (str[i] != x && str[i] != '\t' && str[i] != '\0')
 	{
 		i++;
 		len++;
@@ -64,9 +64,9 @@ char		**ft_strsplit(char const *s, char c)
 		k = 0;
 		if ((str[i] = (char*)malloc(sizeof(char) * wordl(&s[j], c) + 1)) == 0)
 			return (NULL);
-		while (s[j] == c)
+		while (s[j] == c || s[j] == '\t')
 			j++;
-		while (s[j] != c && s[j] != '\0')
+		while (s[j] != c && s[j] != '\t' && s[j] != '\0')
 			str[i][k++] = s[j++];
 		str[i][k] = '\0';
 	}

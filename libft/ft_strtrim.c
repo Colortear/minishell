@@ -3,38 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wdebs <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: aphan <aphan@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/06 17:53:00 by wdebs             #+#    #+#             */
-/*   Updated: 2017/01/09 21:30:32 by wdebs            ###   ########.fr       */
+/*   Created: 2016/09/23 17:11:51 by aphan             #+#    #+#             */
+/*   Updated: 2017/02/26 01:32:35 by wdebs            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-const char	*ft_strtrim(char const *s)
+static void	ap_startend(char const *s, char **start, char **end)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*new;
+	int			trufal;
 
-	i = 0;
-	len = ft_strlen(s);
-	j = len;
-	while (s[i] == ' ' && s[i] == '\n' && s[i] == '\t' && s[i] != '\0')
-		i++;
-	while (s[j] == ' ' && s[j] == '\n' && s[j] == '\t' && s[j] != '\0')
-		j--;
-	if (i == 0 && j == len)
-		return (s);
-	if ((new = ft_strnew((len - i) - j)) != NULL)
+	trufal = 1;
+	while (*s != '\0')
 	{
-		len = 0;
-		while (i <= j)
-			new[len++] = s[i++];
-		return (new);
+		if (*s != ' ' && *s != '\n' && *s != '\t' && *s != 34 && *s != 39)
+			*end = (char *)s;
+		if (trufal == 1 && *s != ' ' && *s != '\n' && *s != '\t' &&
+				*s != 34 && *s != 39)
+		{
+			*start = (char *)s;
+			trufal = 0;
+		}
+		s++;
 	}
-	else
-		return (NULL);
+}
+
+char		*ft_strtrim(char const *s)
+{
+	char		*start;
+	char		*end;
+	char		*trim;
+
+	if (!s)
+		return (0);
+	end = (char *)s;
+	start = (char *)s;
+	ap_startend(s, &start, &end);
+	trim = ft_strsub(s, start - s, end - start + 1);
+	if (end - start <= 0)
+		trim[0] = '\0';
+	return (trim);
 }
