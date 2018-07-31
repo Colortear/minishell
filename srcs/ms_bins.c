@@ -24,11 +24,9 @@ void	run_env(char ***envp)
 void	run_echo(t_vars *vars, char ***envp)
 {
 	int		i;
-	int		end;
 	char	*tmp;
 
 	i = 0;
-	end = 0;
 	while (vars->args[++i])
 	{
 		tmp = ft_strtrim(vars->args[i]);

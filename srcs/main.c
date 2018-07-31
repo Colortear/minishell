@@ -32,11 +32,9 @@ char	**set_path(char ***envp)
 	char	**path;
 	int		i;
 	int		j;
-	int		check;
 
 	i = -1;
 	j = -1;
-	check = 0;
 	while ((*envp)[++i])
 		if (ft_strncmp((*envp)[i], "PATH", 4) == 0)
 			break ;
@@ -55,10 +53,10 @@ void	ini_params(t_vars *vars, char ***envp)
 	buf = NULL;
 	i = -1;
 	vars->old_path = 0;
-	while (ft_strncmp((*envp)[++i], "HOME", 4) != 0)
+	while ((*envp)[++i] && ft_strncmp((*envp)[i], "HOME", 4) != 0)
 		vars->home = i + 1;
 	i = -1;
-	while (ft_strncmp((*envp)[++i], "OLDPWD", 6) != 0)
+	while ((*envp)[++i] && ft_strncmp((*envp)[i], "OLDPWD", 6) != 0)
 		vars->old_path = i + 1;
 	tmp = getcwd(buf, 10024);
 	env_chg("PWD", tmp, envp);
@@ -74,14 +72,13 @@ int		main(int argc, char **argv, char **envp)
 
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	vars->path_check = 0;
-	if (argc && argv)
-		;
-	while (1)
+	while (argc && argv)
 	{
 		ini_params(vars, &envp);
 		vars->path_check == 0 ? vars->path = set_path(&envp) : 0;
-		ft_putstr("$>");
-		grab_line(0, &tmp);
+		ft_putstr("$> ");
+		if (grab_line(0, &tmp) < 2)
+			continue ;
 		vars->args = ft_strsplit(tmp, ' ');
 		free(tmp);
 		tmp = NULL;

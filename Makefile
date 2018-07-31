@@ -20,7 +20,7 @@ O_DIRS = $(C_DIRS:.%=$(O_DIR)%)
 O_FILES = $(C_FILES:.%.c=$(O_DIR)%.o)
 
 IFLAGS = -I $(INC_DIR) -I includes -I libft/includes
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 CC = gcc $(FLAGS)
 LIBFLAGS = -L./libft -lft

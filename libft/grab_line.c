@@ -70,5 +70,5 @@ int				grab_line(const int fd, char **line)
 	list->content = ft_strdup(list->content + ret);
 	free(copy);
 	list = temp;
-	return (ret ? 1 : 0);
+	return (ret);
 }
